@@ -238,6 +238,7 @@ ${preview.innerHTML}
 
   function setTocVisible(visible) {
     toc.hidden = !visible;
+    $('#tocBtn').setAttribute('aria-pressed', String(visible));
     store.set(STORAGE.toc, visible ? '1' : '0');
   }
 
@@ -269,6 +270,7 @@ ${preview.innerHTML}
     }
   });
 
+  $('#openBtn').addEventListener('click', () => fileInput.click());
   fileInput.addEventListener('change', () => {
     loadFile(fileInput.files[0]);
     fileInput.value = '';
