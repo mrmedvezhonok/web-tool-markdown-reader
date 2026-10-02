@@ -276,6 +276,21 @@ ${preview.innerHTML}
 
   $('#saveBtn').addEventListener('click', saveMarkdown);
   $('#exportBtn').addEventListener('click', exportHtml);
+  $('#pdfBtn').addEventListener('click', () => window.print());
+
+  // PDF export goes through the print dialog ("Save as PDF"). While printing, use the light
+  // code-highlight theme and set the title, which browsers use as the default PDF file name.
+  let titleBeforePrint = null;
+  window.addEventListener('beforeprint', () => {
+    titleBeforePrint = document.title;
+    document.title = fileName.replace(/\.[^.]+$/, '');
+    $('#hljs-light').disabled = false;
+    $('#hljs-dark').disabled = true;
+  });
+  window.addEventListener('afterprint', () => {
+    if (titleBeforePrint !== null) document.title = titleBeforePrint;
+    setTheme(document.documentElement.dataset.theme || 'light');
+  });
   $('#tocBtn').addEventListener('click', () => setTocVisible(toc.hidden));
   $('#themeBtn').addEventListener('click', () => {
     setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark');

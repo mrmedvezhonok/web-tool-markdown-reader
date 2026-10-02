@@ -233,7 +233,35 @@ main.mode-read .editor-pane { display: none; }
   .markdown-body { padding: 16px 16px 48px; }
 }
 
+@page { margin: 18mm 16mm; }
+
 @media print {
-  .toolbar, .status, .editor-pane, .toc { display: none !important; }
+  /* Always print on a light palette, whatever theme is on screen. */
+  :root, :root[data-theme="dark"] {
+    --bg: #ffffff;
+    --bg-soft: #f6f8fa;
+    --fg: #1f2328;
+    --muted: #656d76;
+    --border: #d0d7de;
+    --accent: #0969da;
+    --code-bg: #f6f8fa;
+  }
+
+  html, body { height: auto; }
+  body { display: block; }
+  .toolbar, .status, .editor-pane, .toc, .drop-overlay { display: none !important; }
   main { display: block; }
+  /* Show the preview even when the editor-only view is active. */
+  main .preview-pane { display: block !important; overflow: visible; }
+
+  .markdown-body { max-width: none; padding: 0; font-size: 11pt; }
+  .markdown-body pre { white-space: pre-wrap; overflow: visible; }
+  .markdown-body table { display: table; }
+  .markdown-body pre, .markdown-body blockquote, .markdown-body table,
+  .markdown-body img, .markdown-body tr { break-inside: avoid; }
+  .markdown-body h1, .markdown-body h2, .markdown-body h3,
+  .markdown-body h4, .markdown-body h5, .markdown-body h6 { break-after: avoid; }
+
+  /* Keep code backgrounds and table stripes in the PDF. */
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }
