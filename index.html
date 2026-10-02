@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Markdown Reader</title>
+  <link rel="stylesheet" href="style.css">
+  <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css">
+  <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" disabled>
+</head>
+<body>
+  <header class="toolbar">
+    <span class="title" id="docTitle">Untitled.md</span>
+    <div class="actions">
+      <label class="btn" title="Open a .md file (Ctrl+O)">
+        Open
+        <input type="file" id="fileInput" accept=".md,.markdown,.mdown,.txt,text/markdown,text/plain" hidden>
+      </label>
+      <button class="btn" id="saveBtn" title="Download as .md (Ctrl+S)">Save</button>
+      <button class="btn" id="exportBtn" title="Download as standalone HTML">Export HTML</button>
+      <div class="segmented" role="group" aria-label="View mode">
+        <button data-mode="edit">Edit</button>
+        <button data-mode="split">Split</button>
+        <button data-mode="read">Read</button>
+      </div>
+      <button class="btn" id="tocBtn" title="Table of contents">Contents</button>
+      <button class="btn" id="themeBtn" title="Toggle light/dark theme">Theme</button>
+    </div>
+  </header>
+
+  <main id="main" class="mode-split">
+    <aside id="toc" class="toc" hidden></aside>
+    <section class="pane editor-pane">
+      <textarea id="editor" spellcheck="false" placeholder="Type or paste Markdown here, or drop a .md file…"></textarea>
+    </section>
+    <section class="pane preview-pane" id="previewPane">
+      <article id="preview" class="markdown-body"></article>
+    </section>
+  </main>
+
+  <footer class="status" id="status"></footer>
+
+  <div id="dropOverlay" class="drop-overlay" hidden>Drop Markdown file to open</div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
